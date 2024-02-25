@@ -1,34 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
+  
+
+  const [weatherData, setWeather] = useState([]);
+  useEffect(() => {
+    fetch('http://api.weatherapi.com/v1/forecast.json?key=cf36599446cb449cb2925918242502&q=Kandy')
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setWeather(data);
+      });
+  }, []);
+
+  
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <h1>Weather App</h1>
+
+      <b>City : </b> <span>{weatherData?.location?.name}</span>
+      <br />
+      <b>Province : </b> <span>{weatherData?.location?.region}</span>
+      <br />
+      <b>Country : </b> <span>{weatherData?.location?.country}</span>
+      <br />
+      <b>IMG : </b> <span>{weatherData?.current?.condition?.text} <img src={weatherData?.current?.condition?.icon} alt="" /></span>
+      
+      
+
+
+
+    </div>
   )
 }
 
