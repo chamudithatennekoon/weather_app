@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
 
 function App() {
   
@@ -18,21 +20,25 @@ function App() {
   
 
   return (
-    <div>
+    <div className='container'>
+      <div className="title">
       <h1>Weather App</h1>
+      </div>
 
-      <b>City : </b> <span>{weatherData?.location?.name}</span>
+      <h2>
+        {weatherData?.location?.name}
+        </h2>
+      <h4>
+          {weatherData?.location?.region} / {weatherData?.location?.country} 
+      </h4>
+      {weatherData?.location?.localtime}
       <br />
-      <b>Province : </b> <span>{weatherData?.location?.region}</span>
+      <img src={weatherData?.current?.condition?.icon} alt="" height="100px" />
       <br />
-      <b>Country : </b> <span>{weatherData?.location?.country}</span>
+       {weatherData?.current?.temp_c}°C / {weatherData?.current?.temp_f}°F
       <br />
-      <b>IMG : </b> <span>{weatherData?.current?.condition?.text} <img src={weatherData?.current?.condition?.icon} alt="" /></span>
+      {weatherData?.current?.condition?.text}
       
-      
-
-
-
     </div>
   )
 }
