@@ -4,25 +4,33 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 
 function App() {
   
-
+  const [location, setLocation] = useState('kandy');
   const [weatherData, setWeather] = useState([]);
-  useEffect(() => {
-    fetch('http://api.weatherapi.com/v1/forecast.json?key=cf36599446cb449cb2925918242502&q=Kandy')
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setWeather(data);
-      });
-  }, []);
 
-  
+  const getWeather = () => {
+    fetch(`http://api.weatherapi.com/v1/forecast.json?key=cf36599446cb449cb2925918242502&q=${location}`)
+    .then(res => res.json())
+    .then(json => {
+      console.log(json)
+    setWeather(json)
+    }
+    )
+  }
+
+  useEffect(() => {
+    getWeather();
+  }, [location, getWeather]);
+
 
   return (
     <div className='container'>
       <div className="title">
       <h1>Weather App</h1>
+      </div>
+
+      <div className="search">
+        <input onChange={ (e) => setLocation(e.target.value)} />
+        <button onClick={getWeather}>Search</button>
       </div>
 
       <h2>
