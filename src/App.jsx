@@ -33,11 +33,14 @@ function App() {
       </h4>
       {weatherData?.location?.localtime}
       <br />
-      <img src={weatherData?.current?.condition?.icon} alt="" height="100px" />
+      <img src={weatherData?.current?.condition?.icon} alt="" height="150px" />
       <br />
+      <h2>
        {weatherData?.current?.temp_c}°C / {weatherData?.current?.temp_f}°F
-      <br />
+       </h2>
+      <h4>
       {weatherData?.current?.condition?.text}
+      </h4>
       
     </div>
   )
